@@ -57,7 +57,3 @@ git pull origin main
 - Python 仮想環境は各自作成してください（`python3 -m venv venv`）。
 - Flask サーバーはデフォルトで http://localhost:5000 で起動します。
 - フロントエンドは http://localhost:5173 で起動します。
-
-## ライセンス
-
-MIT
