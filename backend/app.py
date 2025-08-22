@@ -6,7 +6,7 @@ CORS(app)
 
 @app.route('/')
 def hello():
-    return jsonify({'message': 'Hello from Flask backend!'})
+    return jsonify({'message': '2025/8/25(Mon)~2025/8/27(Wed)'})
 
 if __name__ == '__main__':
     app.run(debug=True)
