@@ -7,8 +7,7 @@ const app = express();
 app.use(cors()); // CORSを有効にする
 app.use(express.json());
 
-const GEMINI_API_KEY = "AIzaSyAlcUXwm_bmepgZOtaRbEhvo3KeiIw70J0";
-
+const GEMINI_API_KEY = ""
 // Gemini 初期化
 const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
 
