@@ -1,8 +1,24 @@
+/* 全体のスタイルリセット */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 #root {
-  max-width: 1280px;
+  max-width: 100%;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 0;
   text-align: center;
+  min-height: 100vh;
+}
+
+/* 明るく爽やかなグラデーション背景 */
+body {
+  background: linear-gradient(135deg, #74b9ff 0%, #0984e3 50%, #a29bfe 100%);
+  min-height: 100vh;
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  background-attachment: fixed;
 }
 
 .logo {
@@ -40,118 +56,508 @@
 .read-the-docs {
   color: #888;
 }
+/* 明るいカラーパレット */
 :root {
-  --card-bg-color: #ffffff;
-  --card-shadow-color: rgba(0, 0, 0, 0.1);
-  --title-color: #334155; /* 少し青みがかったダークグレー */
-  --days-text-color: #475569; /* タイトルより少し薄いグレー */
-  --highlight-color: #ef4444; /* 強調したい数字の色 (赤) */
+  --primary-gradient: linear-gradient(135deg, #74b9ff 0%, #0984e3 50%, #a29bfe 100%);
+  --card-bg: rgba(255, 255, 255, 1.0);
+  --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  --card-shadow-hover: 0 16px 48px rgba(0, 0, 0, 0.12);
+  --text-primary: #000000;
+  --text-secondary: #1a1a1a;
+  --text-muted: #333333;
+  --accent-color: #74b9ff;
+  --success-color: #00b894;
+  --warning-color: #fdcb6e;
+  --error-color: #e84393;
+  --info-color: #74b9ff;
+  --purple-color: #a29bfe;
+  --green-color: #55efc4;
+  --orange-color: #fd79a8;
+  --border-radius: 24px;
+  --border-radius-small: 16px;
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --app-padding: 1.5rem;
 }
 
-/* --- カード全体のスタイル --- */
+/* メインコンテナ - アプリっぽいデザイン */
+.main-container {
+  background: var(--primary-gradient);
+  min-height: 100vh;
+  padding: var(--app-padding);
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* 明るい装飾要素 */
+.main-container::before {
+  content: '';
+  position: absolute;
+  top: -10%;
+  right: -10%;
+  width: 40%;
+  height: 40%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: floatBubble 15s infinite ease-in-out;
+  pointer-events: none;
+}
+
+.main-container::after {
+  content: '';
+  position: absolute;
+  bottom: -15%;
+  left: -15%;
+  width: 50%;
+  height: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: floatBubble 20s infinite ease-in-out reverse;
+  pointer-events: none;
+}
+
+@keyframes floatBubble {
+  0%, 100% { 
+    transform: translate(0, 0) scale(1);
+    opacity: 0.5;
+  }
+  50% { 
+    transform: translate(-20px, -30px) scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+/* --- カウントダウンカード - より明るいスタイル --- */
 .countdown-card {
-  background-color: var(--card-bg-color);
-  border-radius: 16px; /* 角をより丸く */
-  box-shadow: 0 10px 25px -5px var(--card-shadow-color);
-  padding: 2rem 3rem;
-  max-width: 320px;
-  margin: 2rem auto; /* 中央寄せと上下の余白 */
-  text-align: center;
-  border: 1px solid #e2e8f0;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-/* カードにマウスカーソルを乗せると少し浮き上がるエフェクト */
-.countdown-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 30px -10px var(--card-shadow-color);
-}
-
-/* --- 「試験まで」のタイトルのスタイル --- */
-.countdown-title {
-  color: var(--title-color);
-  font-size: 1.8rem;
-  font-weight: 600; /* 少し太め */
-  margin: 0 0 0.5rem 0; /* 下に少しだけ余白 */
-  letter-spacing: 1px; /* 文字間隔を少し広げる */
-}
-
-/* --- 「あと X 日」のテキスト全体のスタイル --- */
-.countdown-days {
-  color: var(--days-text-color);
-  font-size: 1.5rem;
-  margin: 0;
-  font-weight: 300; /* 細めのフォント */
-  display: flex; /* 中央揃えのため */
-  justify-content: center;
-  align-items: baseline; /* テキストのベースラインを揃える */
-}
-
-/* --- 日数の数字部分のスタイル --- */
-.day-number {
-  color: var(--highlight-color);
-  font-size: 4.5rem; /* 数字を大きく */
-  font-weight: 700; /* 太字 */
-  margin: 0 0.5rem; /* 「あと」「日」との間に余白 */
-  line-height: 1; /* 行の高さを調整 */
-  animation: pulse 1.5s infinite ease-in-out; /* アニメーションを適用 */
-}
-
-/* 数字が鼓動するように動くアニメーション */
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.08);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-/* --- 今日の目標カード --- */
-.goal-card {
-  background-color: var(--card-bg-color);
-  border-radius: 16px;
-  box-shadow: 0 10px 25px -5px var(--card-shadow-color);
-  padding: 1.5rem 2rem;
+  background: linear-gradient(145deg, #ffffff 0%, #f8f9ff 100%);
+  backdrop-filter: blur(20px);
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 2.5rem 2rem;
   max-width: 420px;
   margin: 2rem auto;
-  text-align: center; /* 中央寄せに変更 */
-  border: 1px solid #e2e8f0;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+  border: 3px solid rgba(255, 255, 255, 0.8);
+  transition: var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+.countdown-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(116, 185, 255, 0.3), transparent);
+  transition: left 0.6s ease;
+}
+
+.countdown-card:hover::before {
+  left: 100%;
+}
+
+.countdown-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: var(--card-shadow-hover);
+  border-color: rgba(116, 185, 255, 0.5);
+}
+
+/* アプリ風のタイトル */
+.countdown-title {
+  color: var(--text-primary);
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin: 0 0 1.5rem 0;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  background: linear-gradient(45deg, var(--accent-color), var(--purple-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+}
+
+.countdown-title::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(45deg, var(--accent-color), var(--purple-color));
+  border-radius: 2px;
+}
+
+/* カウントダウンテキスト */
+.countdown-days {
+  color: #000000;
+  font-size: 1.6rem;
+  margin: 0;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* 日数の数字 - ポップなスタイル */
+.day-number {
+  background: linear-gradient(45deg, var(--error-color), var(--orange-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 4.5rem;
+  font-weight: 900;
+  line-height: 1;
+  animation: bounce 2s infinite ease-in-out;
+  filter: drop-shadow(0 4px 8px rgba(232, 67, 147, 0.3));
+  position: relative;
+}
+
+.day-number::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120%;
+  height: 120%;
+  background: radial-gradient(circle, rgba(232, 67, 147, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+  z-index: -1;
+  animation: pulse 2s infinite ease-in-out;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: scale(1) translateY(0); }
+  50% { transform: scale(1.1) translateY(-5px); }
+}
+
+/* --- 今日の目標カード - より明るいアプリ風 --- */
+.goal-card {
+  background: linear-gradient(145deg, #ffffff 0%, #f0f8ff 100%) !important;
+  backdrop-filter: blur(20px);
+  border-radius: var(--border-radius) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+  max-width: 520px;
+  margin: 2rem auto !important;
+  border: 3px solid rgba(255, 255, 255, 0.9) !important;
+  transition: var(--transition-smooth) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.goal-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--success-color), var(--green-color), var(--accent-color));
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
 }
 
 .goal-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 18px 28px -8px var(--card-shadow-color);
+  transform: translateY(-6px) scale(1.02) !important;
+  box-shadow: var(--card-shadow-hover) !important;
+  border-color: rgba(0, 184, 148, 0.4) !important;
 }
 
-/* 見出し */
+.goal-card .MuiCardContent-root {
+  padding: 2.5rem !important;
+}
+
 .goal-card h5 {
-  color: var(--title-color);
-  font-weight: 600;
-  margin-bottom: 1rem;
-  font-size: 1.5rem;
+  background: linear-gradient(45deg, var(--success-color), var(--green-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 800 !important;
+  margin-bottom: 1.5rem !important;
+  font-size: 1.9rem !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
-/* 固定メッセージ */
 .goal-text {
-  font-size: 1.3rem;
-  color: #dc2626; /* 少し強調した赤色 */
-  font-weight: 600;
-  margin-top: 0.5rem;
-  animation: fadeIn 1.2s ease-in-out;
+  font-size: 1.4rem !important;
+  background: linear-gradient(45deg, var(--accent-color), var(--purple-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700 !important;
+  animation: fadeInUp 1s ease-out;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* 文字がふわっと出てくるアニメーション */
-@keyframes fadeIn {
+@keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(30px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* --- チャートとカードのより明るいスタイル --- */
+.chart-card {
+  background: linear-gradient(145deg, #ffffff 0%, #fafbff 100%) !important;
+  backdrop-filter: blur(20px) !important;
+  border-radius: var(--border-radius) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+  border: 3px solid rgba(255, 255, 255, 0.9) !important;
+  transition: var(--transition-smooth) !important;
+  overflow: hidden !important;
+  position: relative;
+}
+
+.chart-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-color), var(--purple-color), var(--success-color), var(--warning-color));
+  background-size: 400% 100%;
+  animation: gradientShift 3s ease infinite;
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.chart-card:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: var(--card-shadow-hover) !important;
+  border-color: rgba(116, 185, 255, 0.5) !important;
+}
+
+/* アプリ風ボタンスタイル */
+.app-button {
+  background: linear-gradient(45deg, var(--accent-color), var(--purple-color)) !important;
+  border: none !important;
+  border-radius: 50px !important;
+  padding: 14px 32px !important;
+  font-weight: 700 !important;
+  text-transform: none !important;
+  box-shadow: var(--card-shadow) !important;
+  transition: var(--transition-smooth) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.app-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s;
+}
+
+.app-button:hover::before {
+  left: 100%;
+}
+
+.app-button:hover {
+  background: linear-gradient(45deg, #0984e3, #6c5ce7) !important;
+  transform: translateY(-2px) scale(1.05) !important;
+  box-shadow: var(--card-shadow-hover) !important;
+}
+
+/* スピードダイヤルのアプリ風カスタム */
+.speed-dial-custom .MuiSpeedDial-fab {
+  background: linear-gradient(45deg, var(--accent-color), var(--purple-color)) !important;
+  box-shadow: var(--card-shadow) !important;
+  border: 2px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+.speed-dial-custom .MuiSpeedDial-fab:hover {
+  background: linear-gradient(45deg, #0984e3, #6c5ce7) !important;
+  transform: scale(1.1) rotate(90deg) !important;
+  box-shadow: var(--card-shadow-hover) !important;
+}
+
+/* モーダルのより明るいカスタムスタイル */
+.modal-paper {
+  background: linear-gradient(145deg, #ffffff 0%, #f8f9ff 100%) !important;
+  backdrop-filter: blur(20px) !important;
+  border-radius: var(--border-radius) !important;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.08), 0 4px 16px rgba(0, 0, 0, 0.04) !important;
+  border: 3px solid rgba(255, 255, 255, 0.9) !important;
+}
+
+/* ボタンのカスタムスタイル */
+.gradient-button {
+  background: linear-gradient(45deg, var(--accent-color), #764ba2) !important;
+  border-radius: 50px !important;
+  padding: 12px 30px !important;
+  font-weight: 600 !important;
+  text-transform: none !important;
+  box-shadow: var(--card-shadow) !important;
+  transition: var(--transition-smooth) !important;
+}
+
+.gradient-button:hover {
+  background: linear-gradient(45deg, #5a67d8, #6b46c1) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: var(--card-shadow-hover) !important;
+}
+
+/* レスポンシブデザインとアニメーション */
+@media (max-width: 768px) {
+  .countdown-card {
+    max-width: 95%;
+    padding: 2rem 1.5rem;
+    margin: 1rem auto;
+  }
+  
+  .countdown-title {
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+  }
+  
+  .day-number {
+    font-size: 3.5rem;
+  }
+  
+  .countdown-days {
+    font-size: 1.4rem;
+    gap: 0.5rem;
+  }
+  
+  .goal-card {
+    max-width: 95% !important;
+    margin: 1rem auto !important;
+  }
+  
+  .goal-card h5 {
+    font-size: 1.5rem !important;
+  }
+  
+  .goal-text {
+    font-size: 1.2rem !important;
+  }
+  
+  .main-container {
+    padding: 1rem 0.5rem;
+  }
+  
+  .main-container::before {
+    display: none; /* モバイルでは重いアニメーションを無効化 */
+  }
+}
+
+@media (max-width: 480px) {
+  .countdown-card {
+    padding: 1.5rem 1rem;
+  }
+  
+  .countdown-title {
+    font-size: 1.3rem;
+  }
+  
+  .day-number {
+    font-size: 3rem;
+  }
+  
+  .countdown-days {
+    font-size: 1.2rem;
+  }
+  
+  .goal-card h5 {
+    font-size: 1.3rem !important;
+  }
+  
+  .goal-text {
+    font-size: 1.1rem !important;
+  }
+}
+
+/* アクセシビリティ対応 */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .main-container::before {
+    display: none;
+  }
+}
+
+/* スクロールバーのカスタマイズ */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, var(--accent-color), #764ba2);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(45deg, #5a67d8, #6b46c1);
+}
+
+/* 追加のアニメーション効果 */
+.chart-card {
+  animation: slideInUp 0.6s ease-out;
+}
+
+.chart-card:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ローディング状態のスタイル */
+.loading-shimmer {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* ダークモード対応 */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --card-bg: rgba(45, 55, 72, 0.95);
+    --text-primary: #f7fafc;
+    --text-secondary: #e2e8f0;
   }
 }
