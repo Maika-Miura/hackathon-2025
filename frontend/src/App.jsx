@@ -8,7 +8,7 @@ import { PieChart } from '@mui/x-charts/PieChart';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ja';
 import { 
-  Box, 
+  Box, Card, CardContent, 
   Typography, 
   Paper, 
   Grid, 
@@ -166,9 +166,28 @@ function App() {
 
   return (
     <div style={{backgroundColor: "white", width: "100vw", height: "100vh", overflow: "auto"}}>
-      <Typography variant='h2' sx={{color: "black", textAlign: 'center', pt: 2}}>あと何日</Typography>
-      <Typography variant='caption' sx={{color: "black", display: 'block', textAlign: 'center', mb: 3}}>目標達成まで</Typography>
-      
+      <div className="App">
+      {/* カウントダウン */}
+      <div className="countdown-card">
+        <h1 className="countdown-title">試験まで</h1>
+        <p className="countdown-days">
+          あと
+          <span className="day-number">3</span>
+          日
+        </p>
+      </div>
+
+      {/* 今日の目標カード */}
+      <Card className="goal-card">
+        <CardContent>
+          <Typography variant="h5" gutterBottom>
+            🎯 今日の目標
+          </Typography>
+          <Typography variant="h4" className="goal-text">
+            今日1日頑張ろう！
+          </Typography>
+        </CardContent>
+      </Card>
       <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="ja">
         <Box sx={{ p: 3 }}>
           {/* カレンダーセクション */}
