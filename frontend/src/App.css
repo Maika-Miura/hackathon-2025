@@ -40,3 +40,118 @@
 .read-the-docs {
   color: #888;
 }
+:root {
+  --card-bg-color: #ffffff;
+  --card-shadow-color: rgba(0, 0, 0, 0.1);
+  --title-color: #334155; /* 少し青みがかったダークグレー */
+  --days-text-color: #475569; /* タイトルより少し薄いグレー */
+  --highlight-color: #ef4444; /* 強調したい数字の色 (赤) */
+}
+
+/* --- カード全体のスタイル --- */
+.countdown-card {
+  background-color: var(--card-bg-color);
+  border-radius: 16px; /* 角をより丸く */
+  box-shadow: 0 10px 25px -5px var(--card-shadow-color);
+  padding: 2rem 3rem;
+  max-width: 320px;
+  margin: 2rem auto; /* 中央寄せと上下の余白 */
+  text-align: center;
+  border: 1px solid #e2e8f0;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* カードにマウスカーソルを乗せると少し浮き上がるエフェクト */
+.countdown-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 30px -10px var(--card-shadow-color);
+}
+
+/* --- 「試験まで」のタイトルのスタイル --- */
+.countdown-title {
+  color: var(--title-color);
+  font-size: 1.8rem;
+  font-weight: 600; /* 少し太め */
+  margin: 0 0 0.5rem 0; /* 下に少しだけ余白 */
+  letter-spacing: 1px; /* 文字間隔を少し広げる */
+}
+
+/* --- 「あと X 日」のテキスト全体のスタイル --- */
+.countdown-days {
+  color: var(--days-text-color);
+  font-size: 1.5rem;
+  margin: 0;
+  font-weight: 300; /* 細めのフォント */
+  display: flex; /* 中央揃えのため */
+  justify-content: center;
+  align-items: baseline; /* テキストのベースラインを揃える */
+}
+
+/* --- 日数の数字部分のスタイル --- */
+.day-number {
+  color: var(--highlight-color);
+  font-size: 4.5rem; /* 数字を大きく */
+  font-weight: 700; /* 太字 */
+  margin: 0 0.5rem; /* 「あと」「日」との間に余白 */
+  line-height: 1; /* 行の高さを調整 */
+  animation: pulse 1.5s infinite ease-in-out; /* アニメーションを適用 */
+}
+
+/* 数字が鼓動するように動くアニメーション */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+/* --- 今日の目標カード --- */
+.goal-card {
+  background-color: var(--card-bg-color);
+  border-radius: 16px;
+  box-shadow: 0 10px 25px -5px var(--card-shadow-color);
+  padding: 1.5rem 2rem;
+  max-width: 420px;
+  margin: 2rem auto;
+  text-align: center; /* 中央寄せに変更 */
+  border: 1px solid #e2e8f0;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.goal-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 28px -8px var(--card-shadow-color);
+}
+
+/* 見出し */
+.goal-card h5 {
+  color: var(--title-color);
+  font-weight: 600;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+/* 固定メッセージ */
+.goal-text {
+  font-size: 1.3rem;
+  color: #dc2626; /* 少し強調した赤色 */
+  font-weight: 600;
+  margin-top: 0.5rem;
+  animation: fadeIn 1.2s ease-in-out;
+}
+
+/* 文字がふわっと出てくるアニメーション */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
